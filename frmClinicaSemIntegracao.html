@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="pt">
+<head>
+	<style>
+		body {
+			background-color: #ccffff;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="forms.css">
+	<script src="jquery-3.3.1.js"></script>
+	<title>TCC Medicos Associados</title>
+
+	<script type="text/javascript">
+		function limparDados()
+		{
+			form.reset();
+			var Digitacao = new Date().toISOString().slice(0, 19).replace('T', ' ');
+			document.getElementById('DigitacaoInicio').value = Digitacao;
+			document.getElementById('DigitacaoTermino').value = Digitacao;
+		}
+
+		function gravarDados()
+		{
+			var Digitacao = new Date().toISOString().slice(0, 19).replace('T', ' ');
+			document.getElementById('DigitacaoTermino').value = Digitacao;
+			$.ajax( {
+				url:'postClinicaSemIntegracao.php',
+				method:'POST',
+				data:{NumeroCarteiraPlanoSaude:document.getElementById('NumeroCarteiraPlanoSaude').value,Nome:document.getElementById('Nome').value,DataNascimento:document.getElementById('DataNascimento').value,Sexo:document.getElementById('Sexo').value,CPF:document.getElementById('CPF').value,NumeroRG:document.getElementById('NumeroRG').value,DigitoRG:document.getElementById('DigitoRG').value,EstadoRG:document.getElementById('EstadoRG').value,Email:document.getElementById('Email').value,Logradouro:document.getElementById('Logradouro').value,Numero:document.getElementById('Numero').value,Complemento:document.getElementById('Complemento').value,Bairro:document.getElementById('Bairro').value,Cidade:document.getElementById('Cidade').value,CEP:document.getElementById('CEP').value,UF:document.getElementById('UF').value,TelefoneDDD:document.getElementById('TelefoneDDD').value,TelefoneNumero:document.getElementById('TelefoneNumero').value,DigitacaoInicio:document.getElementById('DigitacaoInicio').value,DigitacaoTermino:document.getElementById('DigitacaoTermino').value},
+				success:function(data)
+				{
+					console.log(data); // Inspect this in your console
+					alert(data);
+				},
+				error:function(data)
+				{
+					console.log(data); // Inspect this in your console
+					alert("error:" + data);
+				}
+			} );
+		}
+
+	</script>
+
+</head>
+<body onload="limparDados()">
+	<h2>TCC Medicos Associados</h2>
+	<h3>Formulario sem integração</h3>
+
+	<form id="form" name="form" class="pure-form pure-form-aligned">
+		<legend>Paciente:</legend>
+		<fieldset>
+
+			<div class="pure-control-group">
+				<label for="NumeroCarteiraPlanoSaude">Numero Carteira</label>
+				<input name="NumeroCarteiraPlanoSaude" id="NumeroCarteiraPlanoSaude" type="text" placeholder="Numero de carteira de plano">
+			</div>
+
+			<div class="pure-control-group">
+				<label for="Nome">Nome do beneficiario</label>
+				<input name="Nome" id="Nome" type="text" placeholder="Nome" required class="pure-input-2-3">
+			</div>
+
+			<div class="pure-control-group">
+				<label for="DataNascimento">Data de Nascimento</label>
+				<input name="DataNascimento" id="DataNascimento" type="text" placeholder="Data de nascimento" required>
+				<span class="pure-form-message-inline">dd/mm/aaaa.</span>
+			</div>
+
+			<div class="pure-control-group">
+				<label for="Sexo">Sexo</label>
+				<select name="Sexo" id="Sexo" required>
+					<option value="M" selected>Masculino</option>
+					<option value="F">Femininio</option>
+				</select>
+			</div>
+
+			<div class="pure-control-group">
+				<label for="CPF">CPF</label>
+				<input name="CPF" id="CPF" type="text" placeholder="CPF">
+			</div>
+
+			<div class="pure-control-group">
+				<label>RG</label>
+				<input name="NumeroRG" id="NumeroRG" type="text" placeholder="Numero">
+				<input name="DigitoRG" id="DigitoRG" type="text" placeholder="Digito">
+				<input name="EstadoRG" id="EstadoRG" type="text" placeholder="UF">
+			</div>
+
+			<div class="pure-control-group">
+				<label for="Email">Email</label>
+				<input name="Email" id="Email" type="text" placeholder="Email" class="pure-input-1-3">
+			</div>
+
+			<div class="pure-control-group">
+				<label for="Logradouro">Logradouro</label>
+				<input name="Logradouro" id="Logradouro" type="text" placeholder="Logradouro" class="pure-input-2-3">
+			</div>
+			<div class="pure-control-group">
+				<label for="Numero">Numero</label>
+				<input name="Numero" id="Numero" type="text" placeholder="Numero">
+			</div>
+			<div class="pure-control-group">
+				<label for="Complemento">Complemento</label>
+				<input name="Complemento" id="Complemento" type="text" placeholder="Complemento">
+			</div>
+			<div class="pure-control-group">
+				<label for="Bairro">Bairro</label>
+				<input name="Bairro" id="Bairro" type="text" placeholder="Bairro" class="pure-input-2-3">
+			</div>
+			<div class="pure-control-group">
+				<label for="Cidade">Cidade</label>
+				<input name="Cidade" id="Cidade" type="text" placeholder="Cidade" class="pure-input-2-3">
+			</div>
+			<div class="pure-control-group">
+				<label for="CEP">CEP</label>
+				<input name="CEP" id="CEP" type="text" placeholder="CEP">
+			</div>
+			<div class="pure-control-group">
+				<label for="UF">UF</label>
+				<input name="UF" id="UF" type="text" placeholder="UF">
+			</div>
+
+			<div class="pure-control-group">
+				<label>Telefone</label>
+				<input name="TelefoneDDD" id="TelefoneDDD" type="text" placeholder="DDD">
+				<input name="TelefoneNumero" id="TelefoneNumero" type="text" placeholder="TelefoneNumero">
+			</div>
+
+			<div class="pure-controls">
+				<input type="button" value="Limpar / Novo" onclick="limparDados()"/>
+				<input type="button" value="Salvar" onclick="gravarDados()"/>
+			</div>
+
+		</fieldset>
+
+		<input name="DigitacaoInicio" id="DigitacaoInicio" type="hidden">
+		<input name="DigitacaoTermino" id="DigitacaoTermino" type="hidden">
+
+	</form>
+
+</body>
+
+</html>
